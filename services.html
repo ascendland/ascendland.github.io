@@ -336,12 +336,13 @@ document.querySelectorAll('.fade-in-section').forEach(function(el) {
 
 
   <!-- 辦理流程 -->
-  <div class="fade-in-section" style="margin-top:5rem;padding-bottom:1rem;">
+  <div class="fade-in-section" style="margin-top:5rem;">
     <p class="section-label" style="text-align:center;">How It Works</p>
     <h2 class="section-title" style="text-align:center;">服 務 流 程</h2>
     <div class="section-divider"></div>
   </div>
-  <div class="process-steps fade-in-section">
+  <div class="process-steps fade-in-section" style="margin-top:3rem;padding-bottom:2rem;">
+
     <div class="process-step"><div class="step-num">01<div class="step-line"></div></div><div class="step-name">諮詢服務</div><div class="step-desc">電話、LINE 或<br>來所面談皆可</div></div>
     <div class="process-step"><div class="step-num">02<div class="step-line"></div></div><div class="step-name">文件備齊</div><div class="step-desc">我們告知所需<br>文件清單</div></div>
     <div class="process-step"><div class="step-num">03<div class="step-line"></div></div><div class="step-name">代為送件</div><div class="step-desc">全程代辦<br>無需親自跑件</div></div>
@@ -352,6 +353,7 @@ document.querySelectorAll('.fade-in-section').forEach(function(el) {
 
 
 
+  </div>
 </div>
 <section class="contact" id="contact" style="padding:0;">
   <div class="fade-in-section visible" style="padding:4rem 4rem 1rem;">
@@ -383,40 +385,6 @@ document.querySelectorAll('.fade-in-section').forEach(function(el) {
     </div>
   </div>
 </section>
-
-<footer>
-  <p class="footer-logo-text">宇 陞 地 政 士 事 務 所</p>
-  <p class="footer-cert">地政士證書：(114)台內地登字第029887號　｜　地政士：陳祈翰</p>
-  <p class="footer-copy">© 2025 Ascend Land Administration Agents Office. All Rights Reserved.</p>
-</footer>
-
-<script>
-function toggleMenu() {
-  var links = document.querySelector('.nav-links');
-  if (links.style.display === 'flex') { links.style.display = 'none'; }
-  else { links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:rgba(240,237,230,0.98);padding:1.5rem 2rem;gap:1.5rem;border-bottom:0.5px solid rgba(61,47,42,0.12);z-index:99;backdrop-filter:blur(12px);list-style:none;'; }
-}
-window.addEventListener('scroll', function() {
-  document.querySelector('nav').style.boxShadow = window.scrollY > 50 ? '0 1px 20px rgba(61,47,42,0.08)' : 'none';
-});
-function toggleFaq(el) {
-  var item = el.parentElement;
-  var isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
-  if (!isOpen) item.classList.add('open');
-}
-var observer = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.05 });
-document.querySelectorAll('.fade-in-section').forEach(function(el) { observer.observe(el); });
-document.querySelectorAll('.fade-in-section').forEach(function(el) {
-  var rect = el.getBoundingClientRect();
-  if (rect.top < window.innerHeight) el.classList.add('visible');
-});
-</script>
-</body>
-</html>
-  </div>
 
 <footer>
   <p class="footer-logo-text">宇 陞 地 政 士 事 務 所</p>
