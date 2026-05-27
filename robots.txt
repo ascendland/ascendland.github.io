@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fdsa0916-design.github.io/ascendland.github.io/sitemap.xml
+Sitemap: https://ascendland.github.io/sitemap.xml
