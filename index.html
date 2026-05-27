@@ -24,7 +24,7 @@ a:active { color: inherit; }
   --white: #FAF8F5; --text-dark: #2A1F1B; --text-mid: #5C4A43; --text-light: #8B7B75;
 }
 html { scroll-behavior: smooth; }
-body { font-family: 'Noto Sans TC', sans-serif; -webkit-font-smoothing: antialiased; background: var(--cream); color: var(--text-dark); font-weight: 300; overflow-x: hidden; }
+body { font-family: 'Noto Sans TC', sans-serif; -webkit-font-smoothing: antialiased; background: var(--cream); color: var(--text-dark); font-weight: 300; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
 
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 4rem; display: flex; align-items: center; justify-content: space-between; background: rgba(240,237,230,0.92); backdrop-filter: blur(12px); border-bottom: 0.5px solid rgba(61,47,42,0.12); transition: all 0.3s ease; }
 .nav-logo { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
@@ -105,7 +105,8 @@ section { padding: 6rem 4rem; }
 .faq-a { font-size: 0.85rem; line-height: 2; color: var(--text-mid); letter-spacing: 0.05em; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
 .faq-item.open .faq-a { max-height: 300px; padding-bottom: 1.5rem; }
 
-.contact { background: var(--brown-dark); color: var(--cream); }
+.contact { background: var(--brown-dark); color: var(--cream); flex: 1 0 auto; }
+footer { flex-shrink: 0; }
 .contact .section-label { color: rgba(240,237,230,0.4); }
 .contact .section-title { color: var(--cream); }
 .contact .section-divider { background: rgba(240,237,230,0.2); }
@@ -141,8 +142,7 @@ footer { background: #2A1F1B; padding: 3rem 4rem; text-align: center; }
 .calc-tab { padding: 0.9rem 1rem; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-light); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.2s; font-family: 'Noto Sans TC',sans-serif; background: none; border-top: none; border-left: none; border-right: none; }
 .calc-tab:hover { color: var(--brown-dark); }
 .calc-tab.active { color: var(--brown-dark); border-bottom-color: var(--brown-dark); font-weight: 500; }
-.calc-body { padding: 2rem 0; }
-.calc-section { display: none; }
+.calc-.calc-section { display: none; }
 .calc-section.active { display: block; }
 .calc-desc { font-size: 0.8rem; color: var(--text-light); line-height: 1.8; letter-spacing: 0.05em; margin-bottom: 1.5rem; padding: 1rem 1.2rem; background: var(--cream); border-radius: 2px; border-left: 2px solid var(--brown-light); }
 .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.2rem; }
@@ -226,6 +226,10 @@ ul { list-style: none !important; }
   .process-steps-v { padding: 0 0.5rem; }
   .psv-right { padding-bottom: 2rem; }
 }
+
+body { display: flex !important; flex-direction: column !important; min-height: 100vh !important; }
+nav, .subpage-hero, footer { flex-shrink: 0; }
+section.contact { flex: 1 0 auto; }
 </style>
 
   <!-- SEO -->
