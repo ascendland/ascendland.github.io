@@ -255,7 +255,6 @@ a:active { color: inherit; }
   --white: #FAF8F5; --text-dark: #2A1F1B; --text-mid: #5C4A43; --text-light: #8B7B75;
 }
 html { scroll-behavior: smooth; }
-body { font-family: 'Noto Sans TC', sans-serif; -webkit-font-smoothing: antialiased; background: var(--cream); color: var(--text-dark); font-weight: 300; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
 
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 4rem; display: flex; align-items: center; justify-content: space-between; background: rgba(240,237,230,0.92); backdrop-filter: blur(12px); border-bottom: 0.5px solid rgba(61,47,42,0.12); transition: all 0.3s ease; }
 .nav-logo { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
@@ -457,27 +456,8 @@ ul { list-style: none !important; }
   .psv-right { padding-bottom: 2rem; }
 }
 
-body { display: flex !important; flex-direction: column !important; min-height: 100vh !important; }
 nav, .subpage-hero, footer { flex-shrink: 0; }
-section.contact { flex: 1 0 auto; }
 
-/* contact section 全寬修正 */
-.subpage-body + section.contact,
-section.contact { padding: 0 !important; }
-section.contact .fade-in-section { padding: 4rem 4rem 1rem; }
-section.contact .contact-inner { padding: 0 4rem 5rem; }
-/* 頁面填滿 */
-body { display: flex !important; flex-direction: column !important; min-height: 100vh !important; }
-nav { flex-shrink: 0; }
-.subpage-hero { flex-shrink: 0; }
-.subpage-body { flex-shrink: 0; }
-section.contact { flex: 1 0 auto; }
-footer { flex-shrink: 0; }
-@media (max-width: 768px) {
-  section.contact .fade-in-section { padding: 3rem 1.5rem 1rem; }
-  section.contact .contact-inner { padding: 0 1.5rem 3rem; }
-}
-</style>
 
   <!-- SEO -->
   <meta name="description" content="宇陞地政士事務所，位於新竹市北區，由地政士陳祈翰主持。提供繼承登記、買賣移轉、贈與登記、抵押設定、房地合一稅申報等全方位不動產登記服務，以專業、誠信、親切為核心價值。">
