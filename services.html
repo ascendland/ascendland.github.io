@@ -214,8 +214,7 @@ footer { background: #2A1F1B; padding: 3rem 4rem; text-align: center; }
 li, li::marker { list-style: none !important; list-style-type: none !important; color: transparent !important; }
 ul { list-style: none !important; }
 </style>
-<style>
-.subpage body, body.subpage { padding-top: 0; }
+<style>.subpage body, body.subpage { padding-top: 0; }
 .subpage-hero {
   padding: 7rem 4rem 4rem;
   text-align: center;
@@ -246,6 +245,30 @@ ul { list-style: none !important; }
 section.contact { padding: 0 !important; }
 section.contact .fade-in-section { padding: 4rem 4rem 1rem; }
 section.contact .contact-inner { padding: 0 4rem 5rem; }
+@media (max-width: 768px) {
+  section.contact .fade-in-section { padding: 3rem 1.5rem 1rem; }
+  section.contact .contact-inner { padding: 0 1.5rem 3rem; }
+}
+section.contact .fade-in-section { padding: 4rem 4rem 1rem; }
+section.contact .contact-inner { padding: 0 4rem 5rem; }
+/* process steps */
+.process-steps-v { max-width: 680px; margin: 2.5rem auto 0; padding: 0 1rem; }
+.process-step-v { display: flex; gap: 1.5rem; }
+.psv-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.step-num-v { width: 60px; height: 60px; border: 0.5px solid var(--brown-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--cream); flex-shrink: 0; }
+.step-vline { width: 0.5px; flex: 1; background: var(--cream-darker); margin: 0.4rem 0; min-height: 1.5rem; }
+.psv-right { padding-bottom: 2.5rem; padding-top: 0.9rem; }
+.psv-num { font-family: 'Cormorant Garamond',serif; font-size: 0.65rem; color: var(--brown-light); letter-spacing: 0.15em; margin-right: 0.5rem; }
+.psv-title { font-family: 'Noto Serif TC',serif; font-size: 0.95rem; font-weight: 400; letter-spacing: 0.08em; color: var(--brown-dark); margin-bottom: 0.5rem; }
+.psv-desc { font-size: 0.82rem; color: var(--text-mid); line-height: 2; letter-spacing: 0.04em; margin: 0; }
+/* CTA */
+.process-cta { text-align: center; padding: 3.5rem 2rem 3rem; max-width: 600px; margin: 0 auto; }
+.process-cta-line { width: 0.5px; height: 3rem; background: var(--brown-light); margin: 0 auto; opacity: 0.4; }
+.process-cta-en { font-family: 'Cormorant Garamond',serif; font-style: italic; font-size: 0.7rem; letter-spacing: 0.4em; color: var(--text-light); margin: 1.5rem 0 0.5rem; }
+.process-cta-title { font-family: 'AR Gyokaisho','Noto Serif TC',serif; font-size: clamp(1.4rem,3vw,1.8rem); font-weight: 400; letter-spacing: 0.3em; color: var(--brown-dark); margin-bottom: 1rem; }
+.process-cta-desc { font-size: 0.82rem; color: var(--text-mid); line-height: 2; letter-spacing: 0.05em; margin-bottom: 2rem; }
+.process-cta-btn { display: inline-block; padding: 0.85rem 2.5rem; border: 0.5px solid var(--brown-dark); color: var(--brown-dark); font-family: 'Noto Sans TC',sans-serif; font-size: 0.8rem; letter-spacing: 0.2em; text-decoration: none; border-radius: 2px; transition: background 0.2s, color 0.2s; margin-bottom: 2rem; }
+.process-cta-btn:hover { background: var(--brown-dark); color: var(--cream); }
 @media (max-width: 768px) {
   section.contact .fade-in-section { padding: 3rem 1.5rem 1rem; }
   section.contact .contact-inner { padding: 0 1.5rem 3rem; }
@@ -298,11 +321,6 @@ section.contact .contact-inner { padding: 0 4rem 5rem; }
 <section class="services" id="services">
 
   <!-- 服務項目 -->
-  <div class="fade-in-section">
-    <p class="section-label">Our Services</p>
-    <h2 class="section-title">服 務 項 目</h2>
-    <div class="section-divider"></div>
-  </div>
   <div class="services-grid fade-in-section" style="margin-bottom:2rem;">
     <div class="service-item"><div class="service-name">繼承登記</div><div class="service-en">Inheritance</div></div>
     <div class="service-item"><div class="service-name">贈與登記</div><div class="service-en">Gift Transfer</div></div>
