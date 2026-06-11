@@ -868,12 +868,38 @@ function calcTuzeng() {
   var cpiNote = cpi > 0 ? '' : '（未輸入，以100計）';
   var rise = (curr - prevAdjusted) * transferArea;
 
+  // 一般用地稅額（含持有年限減徵），採財政部速算公式
+  // 減徵僅適用於超過第一級距(20%)之第二、三級距部分，非全額打折
+  // reduxRate：0=未滿20年, 0.2/0.3/0.4=持有20+/30+/40+年之減徵率
+  function generalTaxWithRedux(riseAmt, baseAmt, reduxRate) {
+    if (riseAmt <= 0) return 0;
+    var r1 = baseAmt;          // 第一級距上限（漲價未達原地價1倍，20%）
+    var r2 = baseAmt * 2;      // 第二級距上限（1~2倍，30%）
+    var tax;
+    if (riseAmt <= r1) {
+      // 僅第一級距，20%，不減徵
+      tax = riseAmt * 0.20;
+    } else if (riseAmt <= r2) {
+      // 跨第二級距：第二級距30%部分減徵
+      var lvl2 = riseAmt - r1;
+      tax = riseAmt * 0.30 - baseAmt * 0.10 * (1 - reduxRate) - baseAmt * 0.10 * 0;
+      // 採速算式：稅額 = 漲價×[30%-(30%-20%)×reduxRate] - 原地價×10%×reduxRate ... 改用標準速算
+      tax = riseAmt * (0.30 - 0.10 * reduxRate) - baseAmt * (0.10 - 0.10 * reduxRate);
+    } else {
+      // 跨第三級距：第二、三級距均減徵，採財政部速算公式
+      // 稅額 = 漲價總數額 × [40% - (40%-30%)×reduxRate? ] ... 使用法定速算表
+      // 持有30-40年(reduxRate=0.3)：漲價×34% - 原地價×21%
+      // 通式：漲價×(40% - 10%×2×reduxRate... ) 由速算表推導：
+      //   稅率 = 40% - (10%+10%)×reduxRate，累進差額 = 原地價×(30% - (10%+20%)×reduxRate)
+      var effRate = 0.40 - 0.20 * reduxRate;            // 0.3→0.34
+      var effDiff = baseAmt * (0.30 - 0.30 * reduxRate);// 0.3→base×0.21
+      tax = riseAmt * effRate - effDiff;
+    }
+    return Math.round(tax);
+  }
+  // 未減徵版本（顯示用）
   function generalTax(riseAmt, baseAmt) {
-    var t1 = Math.min(riseAmt, baseAmt);
-    var rem1 = riseAmt - t1;
-    var t2 = Math.min(rem1, baseAmt);
-    var t3 = rem1 - t2;
-    return Math.floor(t1 * 0.20) + Math.ceil(t2 * 0.30) + Math.floor(t3 * 0.40);
+    return generalTaxWithRedux(riseAmt, baseAmt, 0);
   }
 
   var selfuseLimit = landtype === 'urban' ? 300 : 700;
@@ -898,25 +924,27 @@ function calcTuzeng() {
 
   var ratio = ((curr - prevAdjusted) / prevAdjusted) * 100;
   var baseAll = prevAdjusted * transferArea;
-  generalTaxAmt = generalTax(rise, baseAll);
+  generalTaxAmt = generalTax(rise, baseAll);                          // 未減徵（顯示用）
+  var generalTaxReduxed = generalTaxWithRedux(rise, baseAll, yearReduxRate); // 含年限減徵
 
   if (overArea > 0) {
     var overRise = (curr - prevAdjusted) * overArea;
     var overBase = prevAdjusted * overArea;
-    overTaxAmt = overRise > 0 ? generalTax(overRise, overBase) : 0;
+    overTaxAmt = overRise > 0 ? generalTaxWithRedux(overRise, overBase, yearReduxRate) : 0;
   }
 
   var selfuseRise = (curr - prevAdjusted) * selfuseArea;
   selfuseTaxAmt = selfuseRise > 0 ? Math.round(selfuseRise * 0.10) : 0;
 
-  var yearReduxAmt = Math.floor(generalTaxAmt * yearReduxRate);
-  var reduxAmt = Math.floor(generalTaxAmt * (redux / 100));
-  var totalGeneral = Math.max(0, generalTaxAmt - yearReduxAmt - reduxAmt);
+  // 持有年限減徵金額（一般稅額 未減徵 − 減徵後）
+  var yearReduxAmt = generalTaxAmt - generalTaxReduxed;
+  var reduxAmt = Math.floor(generalTaxReduxed * (redux / 100));
+  var totalGeneral = Math.max(0, generalTaxReduxed - reduxAmt);
   var totalSelfuse = Math.max(0, selfuseTaxAmt + overTaxAmt - Math.floor((selfuseTaxAmt + overTaxAmt) * (redux / 100)));
 
   set('t-r-realarea', transferArea.toFixed(2) + ' ㎡' + (fracNum != 1 || fracDen != 1 ? '（持分 ' + Math.floor(fracNum) + '/' + Math.floor(fracDen) + '）' : ''));
   set('t-r-adjusted', Math.floor(prevAdjusted).toLocaleString() + ' 元/㎡' + (cpiNote ? '　' + cpiNote : ''));
-  set('t-r-rise', Math.floor(rise).toLocaleString() + ' 元');
+  set('t-r-rise', Math.round(rise).toLocaleString() + ' 元');
   set('t-r-ratio', ratio.toFixed(2) + '%');
   set('t-r-general-tax', generalTaxAmt.toLocaleString() + ' 元（全部面積一般累進）');
   set('t-r-over-tax', overArea > 0 ? overTaxAmt.toLocaleString() + ' 元（超限 ' + overArea.toFixed(2) + ' ㎡）' : '無超限面積');
